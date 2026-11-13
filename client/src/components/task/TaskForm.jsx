@@ -2,29 +2,7 @@ import { useEffect, useState } from 'react'
 import { Calendar, Clock } from '../layout/icons'
 
 /**
- * Pixel-Accurate Figma Task Form (Modal Body):
- *
- * Form Layout:
- *   Add New Task                                 X
- *   Task title
- *   [ Doing Homework                            ]
- *   Set Time
- *   [ clock  Start         ]  [ clock  Ends     ]
- *   Set Date
- *   [ Friday 14, January               calendar ]
- *   Priority
- *   [ Low ]  [ Medium ]  [ High ]
- *   Description
- *   [ Add Description                           ]
- *   [                                           ]
- *   [ Create task / Update task                 ]
- *
- * Requirements:
- * - Priority selector clearly shows Low / Med / High with active state.
- * - Two side-by-side time fields: Start & Ends with Clock icons.
- * - Calendar icon on Date field.
- * - Reused cleanly for both Create ("Add New Task" / "Create task") and Edit ("Edit Task" / "Update task").
- * - Validates: title required, date required, endTime >= startTime (if both provided).
+ * Pixel-Accurate Figma Task Form (Modal Body) with Dark Mode support.
  */
 export default function TaskForm({
   initialData = null,
@@ -40,7 +18,6 @@ export default function TaskForm({
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState({})
 
-  // Format today's date ISO: "YYYY-MM-DD"
   const getTodayISO = () => {
     const now = new Date()
     const pad = (n) => String(n).padStart(2, '0')
@@ -65,7 +42,6 @@ export default function TaskForm({
         setDate(getTodayISO())
       }
     } else {
-      // Create mode defaults
       setTitle('')
       setDescription('')
       setDate(getTodayISO())
@@ -95,7 +71,6 @@ export default function TaskForm({
     e.preventDefault()
     if (!validate()) return
 
-    // Standardize dateTime with startTime (or 09:00 default)
     const combinedDateTime = `${date}T${startTime || '09:00'}`
 
     onSubmit?.({
@@ -112,7 +87,7 @@ export default function TaskForm({
     <form onSubmit={handleSubmit} className="space-y-4 text-left" noValidate>
       {/* ─── Task Title ─── */}
       <div>
-        <label htmlFor="task-title" className="block text-xs font-semibold text-text-primary mb-1.5">
+        <label htmlFor="task-title" className="block text-xs font-semibold text-text-primary dark:text-slate-200 mb-1.5">
           Task title <span className="text-danger">*</span>
         </label>
         <input
@@ -124,9 +99,9 @@ export default function TaskForm({
             if (errors.title) setErrors((prev) => ({ ...prev, title: null }))
           }}
           placeholder="Doing Homework"
-          className={`w-full px-3.5 py-2.5 text-xs sm:text-sm bg-surface border rounded-xl text-text-primary placeholder:text-text-tertiary transition-all
+          className={`w-full px-3.5 py-2.5 text-xs sm:text-sm bg-surface dark:bg-slate-700/60 border rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary dark:placeholder:text-slate-400 transition-all
             focus:outline-none focus:ring-1
-            ${errors.title ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border focus:border-primary-500 focus:ring-primary-500'}`}
+            ${errors.title ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border dark:border-slate-600 focus:border-primary-500 focus:ring-primary-500'}`}
         />
         {errors.title && (
           <p className="text-[11px] text-danger mt-1">{errors.title}</p>
@@ -135,7 +110,7 @@ export default function TaskForm({
 
       {/* ─── Set Time: Two Side-by-Side Inputs ─── */}
       <div>
-        <span className="block text-xs font-semibold text-text-primary mb-1.5">
+        <span className="block text-xs font-semibold text-text-primary dark:text-slate-200 mb-1.5">
           Set Time
         </span>
         <div className="grid grid-cols-2 gap-3">
@@ -153,7 +128,7 @@ export default function TaskForm({
                 setStartTime(e.target.value)
                 if (errors.endTime) setErrors((prev) => ({ ...prev, endTime: null }))
               }}
-              className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-surface border border-border rounded-xl text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all cursor-pointer"
+              className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-surface dark:bg-slate-700/60 border border-border dark:border-slate-600 rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all cursor-pointer"
             />
           </div>
 
@@ -171,8 +146,8 @@ export default function TaskForm({
                 setEndTime(e.target.value)
                 if (errors.endTime) setErrors((prev) => ({ ...prev, endTime: null }))
               }}
-              className={`w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-surface border rounded-xl text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 transition-all cursor-pointer
-                ${errors.endTime ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border focus:border-primary-500 focus:ring-primary-500'}`}
+              className={`w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-surface dark:bg-slate-700/60 border rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-1 transition-all cursor-pointer
+                ${errors.endTime ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border dark:border-slate-600 focus:border-primary-500 focus:ring-primary-500'}`}
             />
           </div>
         </div>
@@ -183,7 +158,7 @@ export default function TaskForm({
 
       {/* ─── Set Date ─── */}
       <div>
-        <label htmlFor="task-date" className="block text-xs font-semibold text-text-primary mb-1.5">
+        <label htmlFor="task-date" className="block text-xs font-semibold text-text-primary dark:text-slate-200 mb-1.5">
           Set Date <span className="text-danger">*</span>
         </label>
         <div className="relative">
@@ -195,8 +170,8 @@ export default function TaskForm({
               setDate(e.target.value)
               if (errors.date) setErrors((prev) => ({ ...prev, date: null }))
             }}
-            className={`w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-surface border rounded-xl text-text-primary focus:outline-none focus:ring-1 transition-all cursor-pointer
-              ${errors.date ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border focus:border-primary-500 focus:ring-primary-500'}`}
+            className={`w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-surface dark:bg-slate-700/60 border rounded-xl text-text-primary dark:text-white focus:outline-none focus:ring-1 transition-all cursor-pointer
+              ${errors.date ? 'border-danger focus:border-danger focus:ring-danger' : 'border-border dark:border-slate-600 focus:border-primary-500 focus:ring-primary-500'}`}
           />
           <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-text-tertiary">
             <Calendar className="w-4 h-4 text-primary-600" />
@@ -209,7 +184,7 @@ export default function TaskForm({
 
       {/* ─── Priority Selector ─── */}
       <div>
-        <span className="block text-xs font-semibold text-text-primary mb-1.5">
+        <span className="block text-xs font-semibold text-text-primary dark:text-slate-200 mb-1.5">
           Priority
         </span>
         <div className="grid grid-cols-3 gap-2">
@@ -217,17 +192,17 @@ export default function TaskForm({
             {
               value: 'low',
               label: 'Low',
-              activeClasses: 'bg-blue-50 border-primary-500 text-primary-600 font-bold shadow-xs',
+              activeClasses: 'bg-blue-50 dark:bg-blue-950/60 border-primary-500 text-primary-600 dark:text-blue-400 font-bold shadow-xs',
             },
             {
               value: 'medium',
               label: 'Medium',
-              activeClasses: 'bg-amber-50 border-amber-500 text-amber-700 font-bold shadow-xs',
+              activeClasses: 'bg-amber-50 dark:bg-amber-950/60 border-amber-500 text-amber-700 dark:text-amber-400 font-bold shadow-xs',
             },
             {
               value: 'high',
               label: 'High',
-              activeClasses: 'bg-red-50 border-red-500 text-red-600 font-bold shadow-xs',
+              activeClasses: 'bg-red-50 dark:bg-red-950/60 border-red-500 text-red-600 dark:text-red-400 font-bold shadow-xs',
             },
           ].map((item) => {
             const isSelected = priority === item.value
@@ -240,7 +215,7 @@ export default function TaskForm({
                   ${
                     isSelected
                       ? item.activeClasses
-                      : 'border-border bg-surface text-text-secondary hover:border-primary-300 hover:bg-surface-hover'
+                      : 'border-border dark:border-slate-600 bg-surface dark:bg-slate-700 text-text-secondary dark:text-slate-300 hover:border-primary-300 hover:bg-surface-hover'
                   }`}
               >
                 {item.label}
@@ -252,7 +227,7 @@ export default function TaskForm({
 
       {/* ─── Description ─── */}
       <div>
-        <label htmlFor="task-description" className="block text-xs font-semibold text-text-primary mb-1.5">
+        <label htmlFor="task-description" className="block text-xs font-semibold text-text-primary dark:text-slate-200 mb-1.5">
           Description
         </label>
         <textarea
@@ -261,7 +236,7 @@ export default function TaskForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Add Description"
-          className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-surface border border-border rounded-xl text-text-primary placeholder:text-text-tertiary transition-all focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 resize-none"
+          className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-surface dark:bg-slate-700/60 border border-border dark:border-slate-600 rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary dark:placeholder:text-slate-400 transition-all focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 resize-none"
         />
       </div>
 

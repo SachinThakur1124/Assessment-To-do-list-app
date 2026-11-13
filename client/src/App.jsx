@@ -5,12 +5,14 @@ import Modal from './components/common/Modal'
 import OnboardingScreen from './components/onboarding/OnboardingScreen'
 import TaskForm from './components/task/TaskForm'
 import useTasks from './hooks/useTasks'
+import useTheme from './hooks/useTheme'
 import FigmaHomeScreen from './pages/FigmaHomeScreen'
 import SearchScreen from './pages/SearchScreen'
 import { formatISO, getDaysForWeek, getWeekKey } from './utils/dateUtils'
 
 function App() {
   const taskState = useTasks()
+  const { isDark, toggleTheme } = useTheme()
 
   // Onboarding screen state (uses "hasCompletedOnboarding" key)
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(() => {
@@ -125,6 +127,8 @@ function App() {
           onToggleStatus={taskState.toggleStatus}
           onEditTask={handleOpenEdit}
           onDeleteTask={handleOpenDelete}
+          isDark={isDark}
+          onToggleTheme={toggleTheme}
         />
       ) : (
         <FigmaHomeScreen
@@ -143,6 +147,8 @@ function App() {
           onEditTask={handleOpenEdit}
           onDeleteTask={handleOpenDelete}
           onViewAll={() => setIsSearchActive(true)}
+          isDark={isDark}
+          onToggleTheme={toggleTheme}
         />
       )}
 

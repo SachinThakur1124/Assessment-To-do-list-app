@@ -15,17 +15,17 @@ export default function TodayTaskList({
   onViewAll,
 }) {
   return (
-    <div className="w-full bg-white border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+    <div className="w-full bg-white dark:bg-slate-800 border border-border/80 dark:border-slate-700 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 transition-colors duration-200">
       {/* ─── Header ─── */}
       <div className="flex items-center justify-between pb-1">
-        <h3 className="text-sm font-bold text-text-primary">
+        <h3 className="text-sm font-bold text-text-primary dark:text-white">
           Tasks Today
         </h3>
         {tasks.length > 0 && (
           <button
             type="button"
             onClick={onViewAll}
-            className="text-xs font-semibold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
+            className="text-xs font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors cursor-pointer"
           >
             View All
           </button>
@@ -39,7 +39,7 @@ export default function TodayTaskList({
           message="Tap the + button below to add your first task."
         />
       ) : (
-        <div className="divide-y divide-border/40">
+        <div className="divide-y divide-border/40 dark:divide-slate-700">
           {tasks.map((task) => (
             <TaskRow
               key={task.id}

@@ -1,9 +1,5 @@
 /**
- * Week Date Selector matching Figma:
- * - 7 days (Mon to Sun)
- * - Day abbreviation (M, T, W, T, F, S, S)
- * - Date number (e.g. 9, 10, 11...)
- * - Selected date highlighted as a solid blue rounded block
+ * Week Date Selector matching Figma with Dark Mode support.
  */
 
 export default function WeekDateSelector({
@@ -25,10 +21,10 @@ export default function WeekDateSelector({
               ${
                 isSelected
                   ? 'bg-primary-600 text-white shadow-md shadow-primary-600/30 scale-[1.02]'
-                  : 'bg-white border border-border/60 text-text-secondary hover:border-primary-300 hover:text-text-primary'
+                  : 'bg-white dark:bg-slate-800 border border-border/60 dark:border-slate-700 text-text-secondary dark:text-slate-300 hover:border-primary-300 hover:text-text-primary dark:hover:text-white'
               }`}
           >
-            <span className={`text-[11px] font-medium mb-1 ${isSelected ? 'text-white/80' : 'text-text-tertiary'}`}>
+            <span className={`text-[11px] font-medium mb-1 ${isSelected ? 'text-white/80' : 'text-text-tertiary dark:text-slate-400'}`}>
               {item.dayName}
             </span>
             <span className="text-xs sm:text-sm font-bold">

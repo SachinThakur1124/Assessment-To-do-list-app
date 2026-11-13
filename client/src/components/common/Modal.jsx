@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { XMark } from '../layout/icons'
 
 /**
- * Reusable accessible modal dialog component.
+ * Reusable accessible modal dialog component with Dark Mode support.
  *
  * Props:
  *   isOpen - boolean
@@ -43,7 +43,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -51,18 +51,18 @@ export default function Modal({ isOpen, onClose, title, children }) {
       {/* Modal Card */}
       <div
         ref={modalRef}
-        className="relative w-full max-w-lg bg-surface rounded-2xl border border-border shadow-xl z-10 overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-lg bg-surface dark:bg-slate-800 rounded-2xl border border-border dark:border-slate-700 shadow-xl z-10 overflow-hidden flex flex-col max-h-[90vh] transition-colors"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-          <h3 id="modal-title" className="text-base font-semibold text-text-primary">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-slate-700">
+          <h3 id="modal-title" className="text-base font-semibold text-text-primary dark:text-white">
             {title}
           </h3>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="p-1 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-hover transition-colors cursor-pointer"
+            className="p-1 rounded-lg text-text-tertiary dark:text-slate-400 hover:text-text-primary dark:hover:text-white hover:bg-surface-hover dark:hover:bg-slate-700 transition-colors cursor-pointer"
           >
             <XMark className="w-5 h-5" />
           </button>
@@ -76,4 +76,3 @@ export default function Modal({ isOpen, onClose, title, children }) {
     </div>
   )
 }
-

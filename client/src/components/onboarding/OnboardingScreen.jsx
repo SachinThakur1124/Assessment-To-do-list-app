@@ -7,8 +7,8 @@
 
 export default function OnboardingScreen({ onGetStarted }) {
   return (
-    <div className="w-full min-h-screen bg-[#F1F5F9] flex items-center justify-center p-0 sm:p-4 md:p-6">
-      <div className="w-full sm:max-w-md min-h-screen sm:min-h-0 sm:rounded-3xl bg-surface flex flex-col justify-between sm:shadow-2xl relative overflow-hidden select-none sm:border sm:border-border/60">
+    <div className="w-full min-h-screen bg-[#F1F5F9] dark:bg-slate-900 flex items-center justify-center p-0 sm:p-4 md:p-6 transition-colors duration-200">
+      <div className="w-full sm:max-w-md min-h-screen sm:min-h-0 sm:rounded-3xl bg-surface dark:bg-slate-800 flex flex-col justify-between sm:shadow-2xl relative overflow-hidden select-none sm:border sm:border-border/60 dark:sm:border-slate-700">
         {/* ─── Top Blue Section ─── */}
         <div className="relative w-full h-[55vh] sm:h-80 bg-primary-600 rounded-b-[40px] flex items-center justify-center overflow-hidden p-6">
           {/* Decorative glows */}
@@ -55,10 +55,10 @@ export default function OnboardingScreen({ onGetStarted }) {
         {/* ─── Bottom White Section ─── */}
         <div className="flex-1 flex flex-col justify-between px-6 sm:px-8 py-8 sm:py-10 text-center">
           <div className="my-auto space-y-2.5">
-            <h1 className="text-2xl sm:text-[26px] font-bold text-text-primary tracking-tight leading-snug">
+            <h1 className="text-2xl sm:text-[26px] font-bold text-text-primary dark:text-white tracking-tight leading-snug">
               Manage What To Do
             </h1>
-            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-xs mx-auto">
+            <p className="text-xs sm:text-sm text-text-secondary dark:text-slate-300 leading-relaxed max-w-xs mx-auto">
               The best way to manage your everyday to do list and keep track of your weekly tasks easily.
             </p>
           </div>

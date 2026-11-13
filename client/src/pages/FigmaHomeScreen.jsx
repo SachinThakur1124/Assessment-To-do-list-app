@@ -1,4 +1,5 @@
 import { Bell, Plus, Settings } from '../components/layout/icons'
+import ThemeToggle from '../components/common/ThemeToggle'
 import SearchInput from '../components/home/SearchInput'
 import WeekDateSelector from '../components/home/WeekDateSelector'
 import TaskSummary from '../components/home/TaskSummary'
@@ -8,7 +9,7 @@ import LoadingState from '../components/common/LoadingState'
 import ErrorState from '../components/common/ErrorState'
 
 /**
- * Responsive Figma Home Screen:
+ * Responsive Figma Home Screen with Theme Toggle in Top Bar:
  * - Mobile: full width with padding (320px - 640px)
  * - Tablet: expands naturally with readable max-width (641px - 1024px)
  * - Desktop: 2-column balanced dashboard view (1024px+)
@@ -29,32 +30,40 @@ export default function FigmaHomeScreen({
   isLoading = false,
   error = null,
   onRetry,
+  isDark = false,
+  onToggleTheme,
 }) {
   return (
-    <div className="w-full min-h-screen bg-[#F8FAFC] pb-24 flex flex-col">
+    <div className="w-full min-h-screen bg-[#F8FAFC] dark:bg-slate-900 pb-24 flex flex-col transition-colors duration-200">
       <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 pt-6 space-y-5 sm:space-y-6">
-        {/* ─── 1. Top Controls ─── */}
+        {/* ─── 1. Top Controls: Settings, Title, Theme Toggle & Bell ─── */}
         <div className="flex items-center justify-between">
           <button
             type="button"
             aria-label="Settings"
-            className="w-10 h-10 rounded-2xl bg-white border border-border/80 flex items-center justify-center text-text-secondary hover:text-text-primary shadow-xs transition-colors cursor-pointer"
+            className="w-10 h-10 rounded-2xl bg-white dark:bg-slate-800 border border-border/80 dark:border-slate-700 flex items-center justify-center text-text-secondary dark:text-slate-300 hover:text-text-primary dark:hover:text-white shadow-xs transition-colors cursor-pointer"
           >
             <Settings className="w-5 h-5" />
           </button>
 
-          <h2 className="text-base sm:text-lg font-bold text-text-primary tracking-tight">
+          <h2 className="text-base sm:text-lg font-bold text-text-primary dark:text-white tracking-tight">
             To-Do List
           </h2>
 
-          <button
-            type="button"
-            aria-label="Notifications"
-            className="w-10 h-10 rounded-2xl bg-white border border-border/80 flex items-center justify-center text-text-secondary hover:text-text-primary shadow-xs transition-colors cursor-pointer relative"
-          >
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-600" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Dark Mode Toggle */}
+            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+
+            {/* Notification Bell */}
+            <button
+              type="button"
+              aria-label="Notifications"
+              className="w-10 h-10 rounded-2xl bg-white dark:bg-slate-800 border border-border/80 dark:border-slate-700 flex items-center justify-center text-text-secondary dark:text-slate-300 hover:text-text-primary dark:hover:text-white shadow-xs transition-colors cursor-pointer relative"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-600" />
+            </button>
+          </div>
         </div>
 
         {/* ─── 2. Search Input Bar ─── */}
@@ -78,7 +87,7 @@ export default function FigmaHomeScreen({
             {/* Left column on desktop: Date Selector, Summaries & Progress */}
             <div className="lg:col-span-5 space-y-5 sm:space-y-6">
               {/* Horizontal 7-Day Date Selector */}
-              <div className="bg-white/50 backdrop-blur-xs p-2 rounded-2xl border border-border/60">
+              <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xs p-2 rounded-2xl border border-border/60 dark:border-slate-700">
                 <WeekDateSelector
                   selectedDate={selectedDate}
                   onSelectDate={onSelectDate}

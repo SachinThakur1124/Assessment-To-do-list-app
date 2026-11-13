@@ -23,7 +23,7 @@ export default function TaskRow({
     : task.startTime || ''
 
   return (
-    <div className="flex items-center justify-between py-3 px-1 border-b border-border/50 last:border-b-0 group">
+    <div className="flex items-center justify-between py-3 px-1 border-b border-border/50 dark:border-slate-700/60 last:border-b-0 group">
       {/* ─── Left: Checkbox + Title / Subtitle + Priority Badge ─── */}
       <div className="flex items-center gap-3 min-w-0 flex-1">
         <button
@@ -34,7 +34,7 @@ export default function TaskRow({
             ${
               isCompleted
                 ? 'bg-primary-600 border-primary-600 text-white'
-                : 'border-border hover:border-primary-400 bg-white'
+                : 'border-border dark:border-slate-600 hover:border-primary-400 bg-white dark:bg-slate-700'
             }`}
         >
           {isCompleted && (
@@ -48,7 +48,7 @@ export default function TaskRow({
           <div className="flex items-center gap-2">
             <h4
               className={`text-xs sm:text-sm font-semibold truncate ${
-                isCompleted ? 'line-through text-text-tertiary' : 'text-text-primary'
+                isCompleted ? 'line-through text-text-tertiary dark:text-slate-500' : 'text-text-primary dark:text-white'
               }`}
             >
               {task.title}
@@ -56,9 +56,9 @@ export default function TaskRow({
             <PriorityBadge priority={task.priority} />
           </div>
 
-          <div className="flex items-center gap-2 text-[11px] text-text-tertiary">
+          <div className="flex items-center gap-2 text-[11px] text-text-tertiary dark:text-slate-400">
             {timeDisplay && (
-              <span className="font-medium text-text-secondary">
+              <span className="font-medium text-text-secondary dark:text-slate-300">
                 {timeDisplay}
               </span>
             )}
@@ -79,7 +79,7 @@ export default function TaskRow({
             type="button"
             onClick={() => onEdit?.(task)}
             aria-label="Edit task"
-            className="p-1 rounded-lg text-text-tertiary hover:text-primary-600 hover:bg-surface-hover transition-colors cursor-pointer"
+            className="p-1 rounded-lg text-text-tertiary dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-surface-hover dark:hover:bg-slate-700 transition-colors cursor-pointer"
           >
             <Pencil className="w-3.5 h-3.5" />
           </button>
@@ -89,7 +89,7 @@ export default function TaskRow({
             type="button"
             onClick={() => onDelete?.(task)}
             aria-label="Delete task"
-            className="p-1 rounded-lg text-text-tertiary hover:text-danger hover:bg-danger-bg transition-colors cursor-pointer"
+            className="p-1 rounded-lg text-text-tertiary dark:text-slate-400 hover:text-danger hover:bg-danger-bg dark:hover:bg-red-950/40 transition-colors cursor-pointer"
           >
             <Trash className="w-3.5 h-3.5" />
           </button>
