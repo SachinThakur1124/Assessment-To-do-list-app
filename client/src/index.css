@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ===== Figma Exact Theme Tokens (with Dark Mode Support) ===== */
 @theme {
   /* --- Figma Vibrant Blue Palette --- */
@@ -81,6 +83,7 @@
 }
 
 html.dark {
+  color-scheme: dark;
   --app-bg: #0F172A;
   --card-bg: #1E293B;
   --text-main: #F8FAFC;
