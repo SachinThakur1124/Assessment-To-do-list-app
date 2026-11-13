@@ -1,0 +1,12 @@
+{
+  "name": "assessment-todo-root",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "npm run --prefix client build"
+  }
+}
+
